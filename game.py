@@ -30,8 +30,7 @@ def main():
 
         announce_turn(player)
         show_board(board)
-        input("paused")
-
+        input("paused")dkq
 
 def show_board(board):
     for row in board:
