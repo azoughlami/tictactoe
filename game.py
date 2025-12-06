@@ -19,6 +19,7 @@ def main():
     active_player_index = 0
     players = ["You", "Computer"]
     symbols = ["X", "O"]
+    player = players[active_player_index]
 
     # until someone wins
     while not find_winner(board):
@@ -31,6 +32,13 @@ def main():
         if not choose_location(board, symbol):
             print("not an option, try again")
             continue
+
+        #toogle active player
+        active_player_index = (active_player_index + 1) % len(players)
+
+    print(f"game over! {player} has won with the board: ")
+    show_board(board)
+
 
 
 def choose_location(board, symbol):
