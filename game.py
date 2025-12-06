@@ -2,44 +2,64 @@
 # v ->create the board
 # v ->choose initial player
 # v -> until someone wins, check the winner
-#   show the board
-#   choose location, mark it
-#   toogle active player
-
-
-
+# v ->   show the board
+# v -> choose location, mark it
+#   toggle active player
 
 
 def main():
-    #create the board
+    # create the board
     board = [
-        [None,None,None],
+        [None, None, None],
         [None, None, None],
         [None, None, None]
     ]
 
-    #Choose initial player
+    # Choose initial player
     active_player_index = 0
     players = ["You", "Computer"]
-    symbols = ["X","O"]
+    symbols = ["X", "O"]
 
-    #until someone wins
+    # until someone wins
     while not find_winner(board):
-        #show board
+        # show board
         player = players[active_player_index]
+        symbol = symbols[active_player_index]
 
         announce_turn(player)
         show_board(board)
-        input("paused")dkq
+        if not choose_location(board, symbol):
+            print("not an option, try again")
+            continue
+
+
+def choose_location(board, symbol):
+    row = int(input("choose a row: "))
+    column = int(input("choose a column: "))
+
+    row -= 1
+    column -= 1
+
+    if row < 0 or row >= len(board):
+        return False
+    if column < 0 or column >= len(board[0]):
+        return False
+
+    cell = board[row][column]
+    if cell is not None:
+        return False
+
+    board[row][column] = symbol
+    return True
+
 
 def show_board(board):
     for row in board:
-        print("|")
+        print("|", end=' ')
         for cell in row:
-            print(cell, end = " | ")
-
+            symbol = cell if cell is not None else "_"
+            print(symbol, end=" | ")
         print()
-
 
 
 def announce_turn(player):
@@ -49,11 +69,8 @@ def announce_turn(player):
 
 
 def find_winner(board):
-    #TODO: implement how we check for the winner
+    # TODO: implement how we check for the winner
     return False
-
-
-
 
 
 if __name__ == '__main__':
